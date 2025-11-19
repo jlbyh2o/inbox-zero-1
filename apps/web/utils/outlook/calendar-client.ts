@@ -27,8 +27,8 @@ export function getCalendarOAuth2Url(state: string): string {
     throw new Error("Microsoft login not enabled - missing client ID");
   }
 
-  const baseUrl =
-    "https://login.microsoftonline.com/common/oauth2/v2.0/authorize";
+  const tenantId = env.MICROSOFT_TENANT_ID || "common";
+  const baseUrl = `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/authorize`;
   const params = new URLSearchParams({
     client_id: env.MICROSOFT_CLIENT_ID,
     response_type: "code",
@@ -66,8 +66,9 @@ export const getCalendarClientWithRefresh = async ({
       throw new Error("Microsoft login not enabled - missing credentials");
     }
 
+    const tenantId = env.MICROSOFT_TENANT_ID || "common";
     const response = await fetch(
-      "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+      `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/token`,
       {
         method: "POST",
         headers: {

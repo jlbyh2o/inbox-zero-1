@@ -68,8 +68,9 @@ export const GET = withError("outlook/linking/callback", async (request) => {
 
   try {
     // Exchange code for tokens
+    const tenantId = env.MICROSOFT_TENANT_ID || "common";
     const tokenResponse = await fetch(
-      "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+      `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/token`,
       {
         method: "POST",
         headers: {
