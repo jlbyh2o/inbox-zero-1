@@ -19,9 +19,9 @@ Connect to your VPS and install Docker Engine by following the [the official gui
 ### 2. Clone
 
 ```bash
-# Clone the repository
-git clone https://github.com/elie222/inbox-zero.git
-cd inbox-zero
+# Clone your fork of the repository
+git clone <your-repository-url>
+cd inbox-zero-1
 ```
 
 ### 3. Configure

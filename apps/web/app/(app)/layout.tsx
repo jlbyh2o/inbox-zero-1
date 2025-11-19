@@ -6,11 +6,9 @@ import { after } from "next/server";
 import { Inter } from "next/font/google";
 import { SideNavWithTopNav } from "@/components/SideNavWithTopNav";
 import { auth } from "@/utils/auth";
-import { PostHogIdentify } from "@/providers/PostHogProvider";
 import { CommandK } from "@/components/CommandK";
 import { AppProviders } from "@/providers/AppProviders";
 import { AssessUser } from "@/app/(app)/[emailAccountId]/assess";
-import { SentryIdentify } from "@/app/(app)/sentry-identify";
 import { ErrorMessages } from "@/app/(app)/ErrorMessages";
 import { QueueInitializer } from "@/store/QueueInitializer";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
@@ -76,12 +74,9 @@ export default async function AppLayout({
           </SideNavWithTopNav>
           <EmailViewer />
           <ErrorBoundary extra={{ component: "AppLayout" }}>
-            <PostHogIdentify />
-
             <CommandK />
             <QueueInitializer />
             <AssessUser />
-            <SentryIdentify email={session.user.email} />
           </ErrorBoundary>
         </AppProviders>
       </div>

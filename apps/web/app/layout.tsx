@@ -1,19 +1,11 @@
-import { Suspense } from "react";
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { AxiomWebVitals } from "next-axiom";
-import { GoogleTagManager } from "@next/third-parties/google";
-import { Analytics as DubAnalytics } from "@dub/analytics/react";
 import { Geist } from "next/font/google";
 import localFont from "next/font/local";
 import type { WebApplication, WithContext } from "schema-dts";
 import "../styles/globals.css";
-import { PostHogPageview, PostHogProvider } from "@/providers/PostHogProvider";
 import { env } from "@/env";
 import { GlobalProviders } from "@/providers/GlobalProviders";
-import { UTM } from "@/app/utm";
 import { startupImage } from "@/app/startup-image";
 import { Toaster } from "@/components/Toast";
 
@@ -141,29 +133,10 @@ export default async function RootLayout({
             __html: JSON.stringify(jsonLd),
           }}
         />
-        <PostHogProvider>
-          <Suspense>
-            <PostHogPageview />
-          </Suspense>
-          <GlobalProviders>
-            {children}
-            <Toaster closeButton richColors theme="light" visibleToasts={9} />
-          </GlobalProviders>
-        </PostHogProvider>
-        <Analytics />
-        <AxiomWebVitals />
-        <UTM />
-        <SpeedInsights />
-        {env.NEXT_PUBLIC_DUB_REFER_DOMAIN && (
-          <DubAnalytics
-            apiHost="/_proxy/dub"
-            scriptProps={{ src: "/_proxy/dub/script.js" }}
-            domainsConfig={{ refer: env.NEXT_PUBLIC_DUB_REFER_DOMAIN }}
-          />
-        )}
-        {env.NEXT_PUBLIC_GTM_ID ? (
-          <GoogleTagManager gtmId={env.NEXT_PUBLIC_GTM_ID} />
-        ) : null}
+        <GlobalProviders>
+          {children}
+          <Toaster closeButton richColors theme="light" visibleToasts={9} />
+        </GlobalProviders>
       </body>
     </html>
   );

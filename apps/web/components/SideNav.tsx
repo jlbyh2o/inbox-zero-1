@@ -50,11 +50,9 @@ import { CommandShortcut } from "@/components/ui/command";
 import { useSplitLabels } from "@/hooks/useLabels";
 import { LoadingContent } from "@/components/LoadingContent";
 import { useCleanerEnabled } from "@/hooks/useFeatureFlags";
-import { ClientOnly } from "@/components/ClientOnly";
 import { AccountSwitcher } from "@/components/AccountSwitcher";
 import { useAccount } from "@/providers/EmailAccountProvider";
 import { prefixPath } from "@/utils/path";
-import { ReferralDialog } from "@/components/ReferralDialog";
 import { isGoogleProvider } from "@/utils/email/provider-types";
 import { NavUser } from "@/components/NavUser";
 import { PremiumCard } from "@/components/PremiumCard";
@@ -235,10 +233,6 @@ export function SideNav({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <PremiumCard isCollapsed={!state.includes("left-sidebar")} />
 
       <SidebarFooter className="pb-4">
-        <ClientOnly>
-          <ReferralDialog />
-        </ClientOnly>
-
         <SidebarMenuButton asChild>
           <Link href="https://docs.getinboxzero.com" target="_blank">
             <BookIcon className="size-4" />

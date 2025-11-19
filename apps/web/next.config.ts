@@ -1,5 +1,3 @@
-import { withSentryConfig } from "@sentry/nextjs";
-import { withAxiom } from "next-axiom";
 import nextMdx from "@next/mdx";
 import withSerwistInit from "@serwist/next";
 import { env } from "./env";
@@ -13,7 +11,6 @@ const withMDX = nextMdx({
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  serverExternalPackages: ["@sentry/nextjs", "@sentry/node"],
   turbopack: {
     rules: {
       "*.svg": {
@@ -296,14 +293,8 @@ const sentryConfig = {
 
 const mdxConfig = withMDX(nextConfig);
 
-const useSentry =
-  process.env.NEXT_PUBLIC_SENTRY_DSN &&
-  process.env.SENTRY_ORGANIZATION &&
-  process.env.SENTRY_PROJECT;
-
-const exportConfig = useSentry
-  ? withSentryConfig(mdxConfig, { ...sentryOptions, ...sentryConfig })
-  : mdxConfig;
+// Sentry disabled for personal fork
+const exportConfig = mdxConfig;
 
 // NEXTAUTH_SECRET is deprecated but kept as an option to not break the build. At least one must be set.
 if (!env.AUTH_SECRET && !env.NEXTAUTH_SECRET) {
@@ -325,4 +316,5 @@ const withSerwist = withSerwistInit({
   maximumFileSizeToCacheInBytes: 3 * 1024 * 1024, // 3MB
 });
 
-export default withAxiom(withSerwist(exportConfig));
+// Axiom logging disabled for personal fork
+export default withSerwist(exportConfig);
