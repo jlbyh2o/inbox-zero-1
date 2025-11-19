@@ -16,13 +16,13 @@ services:
       DIRECT_URL: ${DIRECT_URL}
       UPSTASH_REDIS_URL: ${UPSTASH_REDIS_URL}
       UPSTASH_REDIS_TOKEN: ${UPSTASH_REDIS_TOKEN}
-    labels:
-      # Coolify managed labels
-      - coolify.managed=true
-      # Traefik labels for routing
-      - traefik.enable=true
-      - traefik.http.routers.inbox-zero.rule=Host(`${SERVICE_FQDN_WEB}`)
-      - traefik.http.routers.inbox-zero.entryPoints=https
-      - traefik.http.routers.inbox-zero.tls=true
-      - traefik.http.routers.inbox-zero.tls.certresolver=letsencrypt
-      - traefik.http.services.inbox-zero.loadbalancer.server.port=3000
+    # labels:
+    #   # Coolify managed labels
+    #   - coolify.managed=true
+    #   # Traefik labels for routing
+    #   - traefik.enable=true
+    #   - traefik.http.routers.inbox-zero.rule=Host(`${SERVICE_FQDN_WEB}`)
+    #   - traefik.http.routers.inbox-zero.entryPoints=https
+    #   - traefik.http.routers.inbox-zero.tls=true
+    #   - traefik.http.routers.inbox-zero.tls.certresolver=letsencrypt
+    #   - traefik.http.services.inbox-zero.loadbalancer.server.port=3000
