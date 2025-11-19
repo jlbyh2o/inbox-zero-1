@@ -10,19 +10,13 @@ services:
     expose:
       - "3000"
     environment:
-      # Use external PostgreSQL and Redis from Coolify
-      # Set these in Coolify's environment variables
       DATABASE_URL: ${DATABASE_URL}
       DIRECT_URL: ${DIRECT_URL}
       UPSTASH_REDIS_URL: ${UPSTASH_REDIS_URL}
       UPSTASH_REDIS_TOKEN: ${UPSTASH_REDIS_TOKEN}
-    # labels:
-    #   # Coolify managed labels
-    #   - coolify.managed=true
-    #   # Traefik labels for routing
-    #   - traefik.enable=true
-    #   - traefik.http.routers.inbox-zero.rule=Host(`${SERVICE_FQDN_WEB}`)
-    #   - traefik.http.routers.inbox-zero.entryPoints=https
-    #   - traefik.http.routers.inbox-zero.tls=true
-    #   - traefik.http.routers.inbox-zero.tls.certresolver=letsencrypt
-    #   - traefik.http.services.inbox-zero.loadbalancer.server.port=3000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "-H", "x-health-api-key: ${HEALTH_API_KEY}", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
