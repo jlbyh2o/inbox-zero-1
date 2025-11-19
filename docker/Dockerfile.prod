@@ -74,6 +74,6 @@ RUN pnpm --filter inbox-zero-ai exec -- next build
 
 EXPOSE 3000
 
-# Set the default command to start the production server
-# Use the simpler pnpm command, should work now as pnpm & next are installed
-CMD pnpm --filter inbox-zero-ai start 
+# Set the default command to run migrations then start the production server
+# This ensures database is always up-to-date on container startup
+CMD pnpm --filter inbox-zero-ai exec -- prisma migrate deploy && pnpm --filter inbox-zero-ai start
